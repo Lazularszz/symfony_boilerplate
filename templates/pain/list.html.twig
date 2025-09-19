@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pains{% endblock %}
+
+{% block body %}
+    <h1>Liste des pains</h1>
+
+    <ul>
+        {% for pain in pains %}
+            <li>{{ pain.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ burger.name }}{% endblock %}
+
+{% block body %}
+    <style>
+        .burger-show-container a {
+            color: #E0E0E0;
+            text-decoration: underline;
+            font-style: italic;
+        }
+    </style>
+
+    <div class="burger-show-container">
+        <h1>{{ burger.name }}</h1>
+
+        <p>{{ burger.description }}</p>
+        <p>Prix : {{ burger.price }} €</p>
+
+        <a href="{{ path('burger_list') }}">Retour à la liste des burgers</a>
+    </div>
+{% endblock %}

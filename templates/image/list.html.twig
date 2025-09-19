@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Images{% endblock %}
+
+{% block body %}
+    <h1>Liste des images</h1>
+
+    <ul>
+        {% for image in images %}
+            <li>{{ image.path }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

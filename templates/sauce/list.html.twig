@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sauces{% endblock %}
+
+{% block body %}
+    <h1>Liste des sauces</h1>
+
+    <ul>
+        {% for sauce in sauces %}
+            <li>{{ sauce.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+      <header>
+          <h1>Bienvenue sur CRUDcroustillant</h1>
+          <nav>
+              <ul>
+                  <li><a href="{{ path('home') }}">Accueil</a></li>
+                  <li><a href="{{ path('burger_list') }}">Nos Burgers</a></li>
+                  <li><a href="{{ path('app_pain_list') }}">Nos Pains</a></li>
+                  <li><a href="{{ path('app_oignon_list') }}">Nos Oignons</a></li>
+                  <li><a href="{{ path('app_sauce_list') }}">Nos Sauces</a></li>
+                  <li><a href="{{ path('app_image_list') }}">Nos Images</a></li>
+                  <li><a href="{{ path('app_commentaire_list') }}">Nos Commentaires</a></li>
+              </ul>
+          </nav>
+      </header>
+      <style>
+          header {
+              background-color: #1F1F1F; /* Fond du header (moins sombre) */
+              color: #E0E0E0; /* Texte clair */
+              padding: 20px;
+              text-align: center;
+              border-bottom: 1px solid #333;
+          }
+          nav ul {
+              list-style: none;
+              padding: 0;
+          }
+          nav ul li {
+              display: inline;
+              margin-right: 20px;
+          }
+          nav a {
+            color: #E0E0E0; /* Texte des liens clair */
+            text-decoration: none;
+          }
+          nav a:hover {
+            text-decoration: underline;
+          }
+      </style>
