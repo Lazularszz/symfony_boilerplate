@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Burgers{% endblock %}
+
+{% block body %}
+    <h1>Nos Burgers</h1>
+
+    {% if ingredient is defined %}
+        <h2>Burgers avec l'ingrédient : {{ ingredient }}</h2>
+    {% endif %}
+
+    {% if limit is defined %}
+        <h2>Top {{ limit }} des burgers les plus chers</h2>
+    {% endif %}
+
+    {% if ingredient_without is defined %}
+        <h2>Burgers sans l'ingrédient : {{ ingredient_without }}</h2>
+    {% endif %}
+
+    <div class="burger-list-container">
+        {% for burger in burgers %}
+            <div class="burger-card">
+                {% if burger.image %}
+                    <img src="{{ asset(burger.image.path) }}" alt="Image de {{ burger.name }}">
+                {% endif %}
+                <div class="burger-card-content">
+                    <h3>{{ burger.name }}</h3>
+                    <p class="price">{{ burger.price }} €</p>
+                    <a href="{{ path('burger_show', {id: burger.id}) }}">Voir les détails</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun burger à afficher pour le moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

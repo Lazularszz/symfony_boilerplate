@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PainController extends AbstractController
 {
-    #[Route('/pains', name: 'app_pain_list')]
-    public function list(PainRepository $painRepository): Response
+    #[Route('/pains', name: 'pain_index')]
+    public function index(PainRepository $painRepository): Response
     {
         $pains = $painRepository->findAll();
 
-        return $this->render('pain/list.html.twig', [
+        return $this->render('pain/index.html.twig', [
             'pains' => $pains,
         ]);
     }

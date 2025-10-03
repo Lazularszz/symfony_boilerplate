@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ImageController extends AbstractController
 {
-    #[Route('/images', name: 'app_image_list')]
-    public function list(ImageRepository $imageRepository): Response
+    #[Route('/images', name: 'image_index')]
+    public function index(ImageRepository $imageRepository): Response
     {
         $images = $imageRepository->findAll();
 
-        return $this->render('image/list.html.twig', [
+        return $this->render('image/index.html.twig', [
             'images' => $images,
         ]);
     }

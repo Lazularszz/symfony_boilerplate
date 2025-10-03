@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="home-container">
+        <h1>Bienvenue sur CRUD croustillant !</h1>
+        <p>Découvrez notre sélection de burgers faits maison.</p>
+        <a href="{{ path('burger_index') }}">Voir les burgers</a>
+        <img src="{{ asset('img/colonelSanders.jpg') }}" alt="Image d'accueil">
+    </div>
+{% endblock %}

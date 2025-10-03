@@ -3,20 +3,72 @@
 {% block title %}{{ burger.name }}{% endblock %}
 
 {% block body %}
-    <style>
-        .burger-show-container a {
-            color: #E0E0E0;
-            text-decoration: underline;
-            font-style: italic;
-        }
-    </style>
-
     <div class="burger-show-container">
         <h1>{{ burger.name }}</h1>
 
-        <p>{{ burger.description }}</p>
-        <p>Prix : {{ burger.price }} €</p>
+        {% if burger.image %}
+            <img src="{{ asset(burger.image.path) }}" alt="Image de {{ burger.name }}">
+        {% endif %}
 
-        <a href="{{ path('burger_list') }}">Retour à la liste des burgers</a>
+        <p>{{ burger.description }}</p>
+        <p class="price">{{ burger.price }} €</p>
+
+        <div class="ingredients-section">
+            <h2>Ingrédients</h2>
+            <ul>
+                <li><strong>Pain :</strong> {{ burger.pain.name }}</li>
+                <li>
+                    <strong>Oignons :</strong>
+                    {% if burger.oignons is not empty %}
+                        <ul>
+                            {% for oignon in burger.oignons %}
+                                <li>{{ oignon.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span>Aucun oignon.</span>
+                    {% endif %}
+                </li>
+                <li>
+                    <strong>Sauces :</strong>
+                    {% if burger.sauces is not empty %}
+                        <ul>
+                            {% for sauce in burger.sauces %}
+                                <li>{{ sauce.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span>Aucune sauce.</span>
+                    {% endif %}
+                </li>
+                <li>
+                    <strong>Fromages :</strong>
+                    {% if burger.fromages is not empty %}
+                        <ul>
+                            {% for fromage in burger.fromages %}
+                                <li>{{ fromage.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span>Aucun fromage.</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <div class="comments-section">
+            <h2>Commentaires</h2>
+            {% if burger.commentaires is not empty %}
+                <ul>
+                    {% for commentaire in burger.commentaires %}
+                        <li>{{ commentaire.content }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun commentaire pour ce burger.</p>
+            {% endif %}
+        </div>
+
+        <a href="{{ path('burger_index') }}" class="back-link">Retour à la liste des burgers</a>
     </div>
 {% endblock %}

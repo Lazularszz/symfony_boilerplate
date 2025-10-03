@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ImageController!{% endblock %}
+{% block title %}Images{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Liste des images</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/user/symfony_boilerplate/src/Controller/ImageController.php</code></li>
-        <li>Your template at <code>/home/user/symfony_boilerplate/templates/image/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="image-list-container">
+        {% for image in images %}
+            <div class="image-card">
+                <img src="{{ asset(image.path) }}" alt="Image {{ image.id }}" style="max-width: 200px; height: auto;">
+                <p>{{ image.path|split('/')|last|split('.')|first|capitalize }}</p>
+            </div>
+        {% else %}
+            <p>Aucune image à afficher.</p>
+        {% endfor %}
+    </div>
+    
+    <style>
+        .image-list-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .image-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 {% endblock %}

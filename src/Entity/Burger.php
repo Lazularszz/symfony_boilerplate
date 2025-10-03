@@ -35,6 +35,9 @@ class Burger
     #[ORM\ManyToMany(targetEntity: Sauce::class, inversedBy: 'burgers')]
     private Collection $sauces;
 
+    #[ORM\ManyToMany(targetEntity: Fromage::class, inversedBy: 'burgers')]
+    private Collection $fromages;
+
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Image $image = null;
 
@@ -45,6 +48,7 @@ class Burger
     {
         $this->oignons = new ArrayCollection();
         $this->sauces = new ArrayCollection();
+        $this->fromages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
 
@@ -145,6 +149,30 @@ class Burger
     public function removeSauce(Sauce $sauce): static
     {
         $this->sauces->removeElement($sauce);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fromage>
+     */
+    public function getFromages(): Collection
+    {
+        return $this->fromages;
+    }
+
+    public function addFromage(Fromage $fromage): static
+    {
+        if (!$this->fromages->contains($fromage)) {
+            $this->fromages->add($fromage);
+        }
+
+        return $this;
+    }
+
+    public function removeFromage(Fromage $fromage): static
+    {
+        $this->fromages->removeElement($fromage);
 
         return $this;
     }

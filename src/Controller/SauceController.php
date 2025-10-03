@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SauceController extends AbstractController
 {
-    #[Route('/sauces', name: 'app_sauce_list')]
-    public function list(SauceRepository $sauceRepository): Response
+    #[Route('/sauces', name: 'sauce_index')]
+    public function index(SauceRepository $sauceRepository): Response
     {
         $sauces = $sauceRepository->findAll();
 
-        return $this->render('sauce/list.html.twig', [
+        return $this->render('sauce/index.html.twig', [
             'sauces' => $sauces,
         ]);
     }

@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CommentaireController extends AbstractController
 {
-    #[Route('/commentaires', name: 'app_commentaire_list')]
-    public function list(CommentaireRepository $commentaireRepository): Response
+    #[Route('/commentaires', name: 'commentaire_index')]
+    public function index(CommentaireRepository $commentaireRepository): Response
     {
         $commentaires = $commentaireRepository->findAll();
 
-        return $this->render('commentaire/list.html.twig', [
+        return $this->render('commentaire/index.html.twig', [
             'commentaires' => $commentaires,
         ]);
     }

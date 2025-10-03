@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fromages{% endblock %}
+
+{% block body %}
+    <h1>Liste des fromages</h1>
+
+    <ul>
+        {% for fromage in fromages %}
+            <li>{{ fromage.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

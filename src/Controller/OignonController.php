@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class OignonController extends AbstractController
 {
-    #[Route('/oignons', name: 'app_oignon_list')]
-    public function list(OignonRepository $oignonRepository): Response
+    #[Route('/oignons', name: 'oignon_index')]
+    public function index(OignonRepository $oignonRepository): Response
     {
         $oignons = $oignonRepository->findAll();
 
-        return $this->render('oignon/list.html.twig', [
+        return $this->render('oignon/index.html.twig', [
             'oignons' => $oignons,
         ]);
     }

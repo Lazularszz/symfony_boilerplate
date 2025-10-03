@@ -4,28 +4,12 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+        
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-        <style>
-            html {
-                height: 100%;
-            }
-            body {
-                background-color: #121212; /* Fond très sombre */
-                color: #E0E0E0; /* Texte clair */
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh; /* Hauteur minimale de 100% de la fenêtre */
-                margin: 0; /* Supprimer la marge par défaut */
-            }
-            main {
-                flex-grow: 1; /* Fait en sorte que le contenu principal pousse le footer vers le bas */
-            }
-        </style>
     </head>
     <body>
         {% include '_header.html.twig' %} 
