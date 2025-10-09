@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau Burger{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau Burger</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.pain) }}
+        {{ form_row(form.oignons) }}
+        {{ form_row(form.sauces) }}
+        {{ form_row(form.fromages) }}
+
+        <button class="btn">Créer le burger</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('burger_index') }}">Retour à la liste</a>
+{% endblock %}

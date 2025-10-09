@@ -29,13 +29,13 @@ class Burger
     #[ORM\JoinColumn(nullable: false)]
     private ?Pain $pain = null;
 
-    #[ORM\ManyToMany(targetEntity: Oignon::class, inversedBy: 'burgers')]
+    #[ORM\ManyToMany(targetEntity: Oignon::class, inversedBy: 'burgers', cascade: ['persist'])]
     private Collection $oignons;
 
-    #[ORM\ManyToMany(targetEntity: Sauce::class, inversedBy: 'burgers')]
+    #[ORM\ManyToMany(targetEntity: Sauce::class, inversedBy: 'burgers', cascade: ['persist'])]
     private Collection $sauces;
 
-    #[ORM\ManyToMany(targetEntity: Fromage::class, inversedBy: 'burgers')]
+    #[ORM\ManyToMany(targetEntity: Fromage::class, inversedBy: 'burgers', cascade: ['persist'])]
     private Collection $fromages;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -117,6 +117,7 @@ class Burger
     {
         if (!$this->oignons->contains($oignon)) {
             $this->oignons->add($oignon);
+            $oignon->addBurger($this);
         }
 
         return $this;
@@ -124,7 +125,9 @@ class Burger
 
     public function removeOignon(Oignon $oignon): static
     {
-        $this->oignons->removeElement($oignon);
+        if ($this->oignons->removeElement($oignon)) {
+            $oignon->removeBurger($this);
+        }
 
         return $this;
     }
@@ -141,6 +144,7 @@ class Burger
     {
         if (!$this->sauces->contains($sauce)) {
             $this->sauces->add($sauce);
+            $sauce->addBurger($this);
         }
 
         return $this;
@@ -148,7 +152,9 @@ class Burger
 
     public function removeSauce(Sauce $sauce): static
     {
-        $this->sauces->removeElement($sauce);
+        if ($this->sauces->removeElement($sauce)) {
+            $sauce->removeBurger($this);
+        }
 
         return $this;
     }
@@ -165,6 +171,7 @@ class Burger
     {
         if (!$this->fromages->contains($fromage)) {
             $this->fromages->add($fromage);
+            $fromage->addBurger($this);
         }
 
         return $this;
@@ -172,7 +179,9 @@ class Burger
 
     public function removeFromage(Fromage $fromage): static
     {
-        $this->fromages->removeElement($fromage);
+        if ($this->fromages->removeElement($fromage)) {
+            $fromage->removeBurger($this);
+        }
 
         return $this;
     }

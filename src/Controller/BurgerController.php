@@ -6,9 +6,11 @@ use App\Entity\Burger;
 use App\Entity\Oignon;
 use App\Entity\Pain;
 use App\Entity\Sauce;
+use App\Form\BurgerType;
 use App\Repository\BurgerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -37,31 +39,23 @@ class BurgerController extends AbstractController
     }
 
     #[Route('/burger/create', name: 'burger_create')]
-    public function create(EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // 1. Récupérer un type de pain depuis la base de données
-        $painRepository = $entityManager->getRepository(Pain::class);
-        $pain = $painRepository->findOneBy([]);
+        $burger = new Burger();
+        $form = $this->createForm(BurgerType::class, $burger);
 
-        // S'assurer qu'un pain existe avant de continuer
-        if (!$pain) {
-            return new Response("Erreur : Aucun type de pain n'a été trouvé. Veuillez en créer un via les fixtures ou l'administration.");
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($burger);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('burger_index');
         }
 
-        // 2. Créer le nouveau burger
-        $burger = new Burger();
-        $burger->setName('Krabby Patty');
-        $burger->setPrice(4.99);
-        $burger->setDescription('A delicious burger with a secret formula.');
-        
-        // 3. Assigner le pain au burger
-        $burger->setPain($pain);
-
-        // 4. Persister et flusher le nouveau burger
-        $entityManager->persist($burger);
-        $entityManager->flush();
-
-        return new Response('Burger créé avec succès ! ID: '. $burger->getId());
+        return $this->render('burger/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/burgers/ingredient/{type}/{name}', name: 'burger_by_ingredient')]
